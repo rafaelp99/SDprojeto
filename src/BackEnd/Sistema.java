@@ -72,7 +72,22 @@ public class Sistema implements Serializable {
         }
         return false;
     }
-
+    public boolean containsNickname(String nickname) {                  //Método que verifica se já existe uma gravação com o nome dado
+        for (Contacto user : listaUsers.getContactos()) {
+            if (nickname.equals(user.getNickname())) {
+                return true;
+            }
+        }
+        return false;
+    }
+       public boolean containsMail(String nickname) {                  //Método que verifica se já existe uma gravação com o nome dado
+        for (Contacto user : listaUsers.getContactos()) {
+            if (nickname.equals(user.getNickname())) {
+                return true;
+            }
+        }
+        return false;
+    }
     public void setCurrentUser(String nickname, String email) {
         for (Contacto user : listaUsers.getContactos()) {
             if (nickname.equals(user.getNickname()) && email.equals(user.getEmail())) {
