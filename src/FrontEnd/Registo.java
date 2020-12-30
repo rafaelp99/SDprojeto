@@ -10,6 +10,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Rafael Pinto
@@ -123,8 +124,12 @@ public class Registo extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(!(sistema.containsNickname(jTextField1.getText()) || sistema.containsMail(jTextField2.getText()))){
             try {
-                Contacto c1 = new Contacto(jTextField1.getText(), jTextField2.getText(), jTextField3.getText(), InetAddress.getLocalHost().getHostName(), sistema.getListaContactos().getContactos().size()+2000);
+                Contacto c1 = new Contacto(jTextField1.getText(), jTextField2.getText(), jTextField3.getText(), InetAddress.getLocalHost().getHostAddress(), sistema.getListaContactos().getContactos().size()+2000);
                 sistema.getListaContactos().getContactos().add(c1);
+                JOptionPane.showMessageDialog(this, c1.getPorta(), c1.getIp(), JOptionPane.YES_OPTION);
+                System.out.println(sistema.getListaContactos().getContactos().toString());
+                this.dispose();
+                new Login(sistema).setVisible(true);
             } catch (UnknownHostException ex) {
                 Logger.getLogger(Registo.class.getName()).log(Level.SEVERE, null, ex);
             }
