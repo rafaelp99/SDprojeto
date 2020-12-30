@@ -175,7 +175,7 @@ public class Login extends javax.swing.JFrame {
         
         Registo registo = new Registo(sistema);
         registo.setVisible(true);
-        //this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
