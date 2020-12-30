@@ -25,6 +25,8 @@ public class Login extends javax.swing.JFrame {
     public Login(Sistema sys) {
         initComponents();
         sistema = sys;
+        setLocationRelativeTo(null);
+        setTitle("Login");
     }
 
     /**
