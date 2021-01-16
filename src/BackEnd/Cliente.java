@@ -10,11 +10,11 @@ import java.net.UnknownHostException;
 
 public class Cliente extends Thread {
 
-    private Contacto fonte;
-    private Contacto destino;
+    private User fonte;
+    private User destino;
     private String mensagem;
 
-    public  Cliente(Contacto fonte, Contacto destino, String mensagem) {
+    public  Cliente(User fonte, User destino, String mensagem) {
         this.fonte = fonte;
         this.destino = destino;
         this.mensagem = mensagem;

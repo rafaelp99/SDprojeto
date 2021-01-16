@@ -7,6 +7,10 @@ package FrontEnd;
 
 import BackEnd.*;
 import java.io.IOException;
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -148,18 +152,22 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (sistema.containsUser(textNickname.getText(), textEmail.getText())) {
-            sistema.setCurrentUser(textNickname.getText(), textEmail.getText());
-            this.dispose();
-            try {
-                JanelaChat janela = new JanelaChat(sistema.getCurrentUser(), sistema.getListaContactos());
-                sistema.setJanela(janela);
-                sistema.getJanela().setLocationRelativeTo(null);
-                new Servidor(sistema).start();
-            } catch (IOException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                sistema.setCurrentUser(textNickname.getText(), textEmail.getText());
+                sistema.getCurrentUser().atualizarIp();
+                sistema.enviarContacto();
+                sistema.atualizarContactos();
+                this.dispose();
+                try {
+                    JanelaChat janela = new JanelaChat(sistema.getCurrentUser(), sistema.getCurrentUser().getListaAmigos());
+                    sistema.setJanela(janela);
+                    sistema.getJanela().setLocationRelativeTo(null);
+                    new Servidor(sistema).start();
+                } catch (IOException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+          
         } else {
             JOptionPane.showMessageDialog(this, "User não existe", "Erro no login", JOptionPane.YES_OPTION);
         }
@@ -174,7 +182,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_textEmailActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         Registo registo = new Registo(sistema);
         registo.setVisible(true);
         this.dispose();

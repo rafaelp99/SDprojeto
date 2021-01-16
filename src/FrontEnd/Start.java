@@ -1,7 +1,7 @@
 package FrontEnd;
 
-import BackEnd.Contacto;
-import BackEnd.ListaContactos;
+import BackEnd.User;
+import BackEnd.ListaUsers;
 import BackEnd.Servidor;
 import BackEnd.Sistema;
 import java.io.IOException;
@@ -11,15 +11,17 @@ public class Start {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         Sistema sys = new Sistema();
-        Contacto autor = new Contacto("teste", "teste@gmail.com", "MI", "192.168.1.12", 2001);
-        sys.getListaContactos().getContactos().add(autor);
-        //Contacto destino = new Contacto("PCPORTATIL", "fejieg@gmail.com", "MI", "192.168.1.7", 4000);
-        //ListaContactos l1 = new ListaContactos();
-        //l1.getContactos().add(destino);
-        //new Servidor(sys);
+        User autor = new User("teste", "teste@gmail.com", "MI", "192.168.1.12", 2000);
+         User autor2 = new User("pedro", "pedro@gmail.com", "MI", "192.168.1.12", 2001);
+         autor.addAmigo(autor2);
+         autor2.addAmigo(autor);
+
+        sys.getListaUtilizadoresRegistados().getUsers().add(autor);
+        sys.getListaUtilizadoresRegistados().getUsers().add(autor2);
+        //sys.getListaContactosGlobal().getUsers().add(autor2);
         new Login(sys).setVisible(true);
         
-        System.out.println(sys.getListaContactos());
+        System.out.println(sys.getListaUtilizadoresRegistados());
     }
     
     

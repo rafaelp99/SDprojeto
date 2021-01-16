@@ -124,10 +124,10 @@ public class Registo extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(!(sistema.containsNickname(jTextField1.getText()) || sistema.containsMail(jTextField2.getText()))){
             try {
-                Contacto c1 = new Contacto(jTextField1.getText(), jTextField2.getText(), jTextField3.getText(), InetAddress.getLocalHost().getHostAddress(), sistema.getListaContactos().getContactos().size()+2000);
-                sistema.getListaContactos().getContactos().add(c1);
+                User c1 = new User(jTextField1.getText(), jTextField2.getText(), jTextField3.getText(), InetAddress.getLocalHost().getHostAddress(), sistema.getListaUtilizadoresRegistados().getUsers().size()+2000);
+                sistema.getListaUtilizadoresRegistados().getUsers().add(c1);
                 JOptionPane.showMessageDialog(this, c1.getPorta(), c1.getIp(), JOptionPane.YES_OPTION);
-                System.out.println(sistema.getListaContactos().getContactos().toString());
+                System.out.println(sistema.getListaUtilizadoresRegistados().getUsers().toString());
                 this.dispose();
                 new Login(sistema).setVisible(true);
             } catch (UnknownHostException ex) {
@@ -136,40 +136,8 @@ public class Registo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Registo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Registo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Registo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Registo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Registo(sistema).setVisible(true);
-            }
-        });
-    }
+ 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

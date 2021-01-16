@@ -8,21 +8,23 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Sistema implements Serializable {
 
     private boolean isSaved = true;
     public static final String NOMEPROGRAMA = "Sistema de Mensagens";
-    private final String NOMEFICHEIRO = "Sistema.Dados";
-    private ListaContactos listaUsers;
-    private Contacto currentUser;
+    private static final String NOMEFICHEIRO = "Sistema.Dados";
+    private static String IP_SERVIDOR = "localhost";
+    private static final String NOME_SERVICO = "/ServidorContactos";
+    private ListaUsers listaUtilizadoresRegistados;
+    private ListaUsers listaContactosGlobal;
+    private User currentUser;
     private JanelaChat janela;
 
     public Sistema() throws IOException {
-        listaUsers = new ListaContactos();
+        listaUtilizadoresRegistados = new ListaUsers();
+        listaContactosGlobal = new ListaUsers();
         currentUser = null;
         janela = null;
         isSaved = true;
@@ -40,19 +42,27 @@ public class Sistema implements Serializable {
         this.isSaved = isSaved;
     }
 
-    public ListaContactos getListaContactos() {
-        return listaUsers;
+    public ListaUsers getListaUtilizadoresRegistados() {
+        return listaUtilizadoresRegistados;
     }
 
-    public void setListaContactos(ListaContactos listaContactos) {
-        this.listaUsers = listaContactos;
+    public void setListaUtilizadoresRegistados(ListaUsers listaContactos) {
+        this.listaUtilizadoresRegistados = listaContactos;
     }
 
-    public Contacto getCurrentUser() {
+    public ListaUsers getListaContactosGlobal() {
+        return listaContactosGlobal;
+    }
+
+    public void setListaContactosGlobal(ListaUsers listaContactosGlobal) {
+        this.listaContactosGlobal = listaContactosGlobal;
+    }
+
+    public User getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(Contacto currentUser) {
+    public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 
@@ -64,32 +74,56 @@ public class Sistema implements Serializable {
         this.janela = janela;
     }
 
+    public String getIP_SERVIDOR() {
+        return IP_SERVIDOR;
+    }
+
+    public String getNOME_SERVICO() {
+        return NOME_SERVICO;
+    }
+
+    public void setIP_SERVIDOR(String IP_SERVIDOR) {
+        Sistema.IP_SERVIDOR = IP_SERVIDOR;
+    }
+
+    public void enviarContacto() {
+        ClienteRMI clienteRMI = new ClienteRMI();
+        clienteRMI.EnviarContacto(this);
+    }
+    public void atualizarContactos() {
+        ClienteRMI clienteRMI = new ClienteRMI();
+        clienteRMI.pedirContactos(this);
+    }
+
     public boolean containsUser(String nickname, String email) {                  //Método que verifica se já existe uma gravação com o nome dado
-        for (Contacto user : listaUsers.getContactos()) {
+        for (User user : listaUtilizadoresRegistados.getUsers()) {
             if (nickname.equals(user.getNickname()) && email.equals(user.getEmail())) {
                 return true;
             }
         }
         return false;
     }
+
     public boolean containsNickname(String nickname) {                  //Método que verifica se já existe uma gravação com o nome dado
-        for (Contacto user : listaUsers.getContactos()) {
+        for (User user : listaUtilizadoresRegistados.getUsers()) {
             if (nickname.equals(user.getNickname())) {
                 return true;
             }
         }
         return false;
     }
-       public boolean containsMail(String nickname) {                  //Método que verifica se já existe uma gravação com o nome dado
-        for (Contacto user : listaUsers.getContactos()) {
+
+    public boolean containsMail(String nickname) {                  //Método que verifica se já existe uma gravação com o nome dado
+        for (User user : listaUtilizadoresRegistados.getUsers()) {
             if (nickname.equals(user.getNickname())) {
                 return true;
             }
         }
         return false;
     }
+
     public void setCurrentUser(String nickname, String email) {
-        for (Contacto user : listaUsers.getContactos()) {
+        for (User user : listaUtilizadoresRegistados.getUsers()) {
             if (nickname.equals(user.getNickname()) && email.equals(user.getEmail())) {
                 this.currentUser = user;
             }

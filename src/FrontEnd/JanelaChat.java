@@ -9,14 +9,14 @@ import javax.swing.JTextArea;
 
 public class JanelaChat extends javax.swing.JFrame {
 
-    Contacto autor;
-    ArrayList<Contacto> listaContactos;
+    User autor;
+    ArrayList<User> listaContactos;
     Servidor server;
 
-    public JanelaChat(Contacto autor, ListaContactos lista) throws IOException, ClassNotFoundException {
+    public JanelaChat(User autor, ListaUsers lista) throws IOException, ClassNotFoundException {
         initComponents();
         this.autor = autor;
-        this.listaContactos = lista.getContactos();
+        this.listaContactos = lista.getUsers();
         this.setTitle("Utilizador: " + autor.getNickname() + ", Porta: " + autor.getPorta());
         jTextArea1.setEditable(false);
     }
@@ -98,7 +98,7 @@ public class JanelaChat extends javax.swing.JFrame {
             Date data = new Date();
             String tempo = "<" + formatadorTempo.format(data) + "> ";
             jTextArea1.append(tempo + "Enviada: " + jTextField1.getText() + "\n");
-            for (Contacto destino : listaContactos) {
+            for (User destino : listaContactos) {
                 Cliente cliente = new Cliente(autor, destino, jTextField1.getText());
                 cliente.start();
             }
