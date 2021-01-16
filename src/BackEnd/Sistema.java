@@ -129,7 +129,9 @@ public class Sistema implements Serializable {
             }
         }
     }
-
+    public void setLogout(){
+        this.currentUser=null;
+    }
     public Sistema readSistema(Component componente) throws ClassNotFoundException, IOException { //Método que lê um ficheiro stream objeto e retorna um objeto Sistema. Se ocorrer um erro, irá delvolver um novo Objeto criado e gravá-lo depois.
         ObjectInputStream inputSistema = null;
         ObjectOutputStream outputSistema = null;

@@ -9,11 +9,19 @@ import javax.swing.JOptionPane;
 public class Servidor extends Thread {
 
     Sistema sistema;
+    private boolean LoginUser;
 
     public Servidor(Sistema sistema) {
         this.sistema = sistema;
+        this.LoginUser = true;
+        
     }
-
+    public boolean getLoginUser(){
+        return LoginUser;
+    }
+    public void setLoginUser(Boolean b){
+        this.LoginUser= b;
+    }
     @Override
     public void run() {
         ServerSocket servidor = null;
@@ -27,8 +35,12 @@ public class Servidor extends Thread {
         }
 
         sistema.getJanela().setVisible(true);
-
-        while (true) {
+        if(sistema.getCurrentUser().equals(null)){
+            System.out.println("logout");
+            setLoginUser(false);
+        }
+        while (LoginUser) {
+            System.out.println(LoginUser);
             try {
                 Socket ligacao = servidor.accept();
                 AtendedorPedidos handler = new AtendedorPedidos(ligacao, sistema);

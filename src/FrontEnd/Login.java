@@ -31,6 +31,7 @@ public class Login extends javax.swing.JFrame {
         sistema = sys;
         setLocationRelativeTo(null);
         setTitle("Login");
+        System.out.println(sys.getCurrentUser());
     }
 
     /**
@@ -158,7 +159,7 @@ public class Login extends javax.swing.JFrame {
                 sistema.atualizarContactos();
                 this.dispose();
                 try {
-                    JanelaChat janela = new JanelaChat(sistema.getCurrentUser(), sistema.getCurrentUser().getListaAmigos());
+                    JanelaChat janela = new JanelaChat(sistema, sistema.getCurrentUser(), sistema.getCurrentUser().getListaAmigos());
                     sistema.setJanela(janela);
                     sistema.getJanela().setLocationRelativeTo(null);
                     new Servidor(sistema).start();
